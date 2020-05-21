@@ -15,11 +15,11 @@
  * remained in the SDK for years.
  * 
  * Given it's vintage, keep in mind, this is K&R C, which means things
- * line inline variable declarations for C functions simply don't exist.
+ * like inline variable declarations for C functions simply don't exist.
  * 
  * In addition, this is real mode 16-bit programming, which means that
  * we're dealing with a segmented address space. I'll write more about
- * segments later, but just note the NEAR and FAR do infact mean something
+ * segments later, but just note the NEAR and FAR do in fact mean something
  * in this version of Windows
  */
 
@@ -65,7 +65,7 @@ long FAR PASCAL HelloWndProc(HWND, unsigned, WORD, LONG);
  * PASCAL was a first class citizen of Windows programming at this time, it was easier
  * to use PASCAL style functions for the Windows C API than CDECL. It may have also
  * been done for space saving as CDECL does require prolog/epilog code in every function
- * call although even for 1985, I would think it relatively negiliable ..
+ * call although even for 1985, I would think it relatively negligible.
  */
 
 int PASCAL WinMain( hInstance, hPrevInstance, lpszCmdLine, cmdShow )
@@ -80,7 +80,7 @@ int cmdShow;
     /**
      * NC: Our first real departure from Win32 is with hPrevInstance.
      * 
-     * On modern Win32, this is a dummy, it's always set to NULL, but it had a purpose at one point.
+     * On modern Win32, this is a dummy: it's always set to NULL, but it had a purpose at one point.
      * 
      * Win16 applications can be moved and loaded/unloaded in memory. On the 8086, there is no MMU
      * to help with this process, so the Windows API has to track memory block allocations and
@@ -127,7 +127,7 @@ int cmdShow;
      * which introduced the now familar overlapping windows. Microsoft
      * eventually won in court, aruging that Apple had copied from Xerox.
      * 
-     * See: Apple v. Digital Research and Apple v. Microsoft
+     * See: Apple v. Digital Research  and  Apple v. Microsoft
      * 
      * The court case is kinda a messy history, but it's not that different
      * from Samsung vs. Apple and rounded corners :). Maybe a video for
@@ -180,7 +180,7 @@ int cmdShow;
      * functions that are within the segment or are "near".
      * 
      * FAR calls on the other hand deal with code living in another segment
-     * The processor only changes CS on a FAR call and its userspace's
+     * The processor only changes CS on a FAR call and it's userspace's
      * responsibility to load the other segment registers as needed. So registering
      * DS to a lookup table looks reasonable. And it would be if Microsoft actually
      * remembered how their own OS works.
@@ -248,7 +248,7 @@ int cmdShow;
 /**
  * NC: I explained the basis of this back in hPrevInstance, but basically, anything
  * that is a resource (aka, in the RC file) gets loaded into global space. This is
- * where that magic happens. Class registration also happens here
+ * where that magic happens. Class registration also happens here.
  */
 
 BOOL HelloInit( hInstance )
@@ -267,7 +267,7 @@ HANDLE hInstance;
      * tl;dr: Windows 16-bit has the concept of Local and Global allocations, defining
      * if a memory block is used between multiple applications.
      * 
-     * The long story short was Windows was designed with the idea that 16-bit programs could theoretically
+     * The long-story short was Windows was designed with the idea that 16-bit programs could theoretically
      * run in their own address space. This is remarkably similar to what 286 Protected mode looks like
      * due to the fact that 286 Protected Mode is still limited to 64-kb segment size.
      * 
@@ -302,8 +302,8 @@ HANDLE hInstance;
      * NC: Class registration exists in later versions of Windows, but what it did
      * here was a bit different due to how 16-bit Windows worked
      * 
-     * As stated before, everything exists in a global soup. The MSFT supplied comment
-     * states that when registration of ails, Windows deallocates all memory. This is
+     * As stated before, everything exists in a global soup. The MSFT-supplied comment
+     * states that when registration fails, Windows deallocates all memory. This is
      * partially true as I understand it. Instead, when a program quits, any bits it
      * loads stays in memory until a block is needed again. This includes code segments
      * used for windows and dialog classes (also see MakeProcInstance's rant). Class
